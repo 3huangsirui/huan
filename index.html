@@ -1,5 +1,43 @@
 <!DOCTYPE html>
 <html>
-<head><title>我的免费网页</title></head>
-<body><h1>Hello, World!</h1></body>
+<head>
+    <title>Python猜数字游戏</title>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f0f0f0; }
+        #game { font-size: 18px; padding: 20px; background: white; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div id="game"></div>
+    <py-script>
+        import random
+        from pyscript import Element
+        secret_number = random.randint(1, 100)
+        attempts = 0
+        game_div = Element("game")
+
+        def guess_number(event):
+            global attempts
+            attempts += 1
+            # 获取输入的数字
+            guess = int(Element("guess_input").value)
+            # 判断结果
+            if guess < secret_number:
+                game_div.write(f"太小了！再试试～ 已尝试 {attempts} 次")
+            elif guess > secret_number:
+                game_div.write(f"太大了！再试试～ 已尝试 {attempts} 次")
+            else:
+                game_div.write(f"恭喜猜对了！数字是 {secret_number}，总共试了 {attempts} 次🎉")
+
+        # 显示游戏界面
+        game_div.write("""
+            <h3>Python猜数字游戏</h3>
+            <p>我想了一个1-100之间的数字，你来猜猜看！</p>
+            <input type="number" id="guess_input" min="1" max="100" placeholder="输入你猜的数字">
+            <button py-click="guess_number()">提交答案</button>
+        """)
+    </py-script>
+</body>
 </html>
