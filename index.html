@@ -1,17 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>我的游戏网页</title>
-    <!-- 设置页面适配，避免游戏显示变形 -->
+    <title>我的世界（作者黄思瑞）</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        /* 让游戏占满整个页面 */
-        body { margin: 0; padding: 0; }
-        iframe { width: 100vw; height: 100vh; border: none; }
+        body { 
+            margin: 0; 
+            padding: 0; 
+            height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            background: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        #welcome {
+            font-size: 28px;
+            color: #333;
+            text-align: center;
+        }
+        iframe { 
+            width: 100vw; 
+            height: 100vh; 
+            border: none; 
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <!-- 嵌入 Minecraft 网页版 -->
-    <iframe src="https://play1.mc.js.cool/1.8/"></iframe>
+    <div id="welcome">
+        林毅恒SB，戴乐言牛逼<br>
+        游戏将在<span id="countdown">5</span>秒后启动...
+    </div>
+    <iframe id="game" src="https://play1.mc.js.cool/1.8/"></iframe>
+    <script>
+        let count = 5;
+        const countdownEl = document.getElementById("countdown");
+        const timer = setInterval(function() {
+            count--;
+            countdownEl.textContent = count;
+            if (count === 0) {
+                clearInterval(timer);
+                document.getElementById("welcome").style.display = "none";
+                document.getElementById("game").style.display = "block";
+            }
+        }, 1000);
+    </script>
 </body>
 </html>
