@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>我的世界（作者黄思瑞）</title>
+    <title>我的世界版本选择</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body { 
@@ -19,32 +19,64 @@
             color: #333;
             text-align: center;
         }
+        .version-btn {
+            margin: 10px;
+            padding: 15px 30px;
+            font-size: 20px;
+            border: none;
+            border-radius: 8px;
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .version-btn:hover {
+            background: #45a049;
+        }
         iframe { 
             width: 100vw; 
             height: 100vh; 
             border: none; 
             display: none;
         }
+        #countdown {
+            color: #e63946;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <div id="welcome">
-        林毅恒SB，戴乐言牛逼<br>
-        游戏将在<span id="countdown">5</span>秒后启动...
+        林毅恒sb，戴乐言牛逼<br>
+        请选择游戏版本（10秒后自动进入1.8版本）<br>
+        倒计时：<span id="countdown">10</span>秒
+        <div style="margin-top: 30px;">
+            <button class="version-btn" onclick="startGame('https://play1.mc.js.cool/1.8/')">1.8版本</button>
+            <button class="version-btn" onclick="startGame(' play1.mc.js.cool/1.12beta')">1.12版本</button>
+            <button class="version-btn" onclick="startGame('play1.mc.js.cool/1.5')">1.5版本</button>
+        </div>
     </div>
-    <iframe id="game" src="https://play1.mc.js.cool/1.8/"></iframe>
+    <iframe id="game" src=""></iframe>
+
     <script>
-        let count = 5;
+        let count = 10;
         const countdownEl = document.getElementById("countdown");
         const timer = setInterval(function() {
             count--;
             countdownEl.textContent = count;
             if (count === 0) {
                 clearInterval(timer);
-                document.getElementById("welcome").style.display = "none";
-                document.getElementById("game").style.display = "block";
+                startGame('https://play1.mc.js.cool/1.8/');
             }
         }, 1000);
+
+        function startGame(url) {
+            clearInterval(timer);
+            document.getElementById("welcome").style.display = "none";
+            const gameIframe = document.getElementById("game");
+            gameIframe.src = url;
+            gameIframe.style.display = "block";
+        }
     </script>
 </body>
 </html>
